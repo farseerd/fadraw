@@ -1,0 +1,30 @@
+{
+  "name": "fadraw",
+  "version": "0.1.0",
+  "description": "A simple tool for drawing and editing shapes",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rollup -w -c build/config.js"
+  },
+  "author": "farseer",
+  "license": "MIT",
+  "dependencies": {
+    "konva": "^4.0.12",
+    "lodash": "^4.17.15",
+    "react-dom": "^16.9.0",
+    "react-konva": "^16.9.0-1",
+    "use-image": "^1.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-external-helpers": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "rollup": "^1.21.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  }
+}
