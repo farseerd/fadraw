@@ -6,10 +6,11 @@ export function on(name, func) {
   } else {
     list[name] = [func]
   }
+  console.log(list)
 }
 
 export function off(name, func) {
-  if (!list.name) return
+  if (!list[name]) return
   if (func) {
     list[name] = list[name].filter(o => o !== func)
   } else {
@@ -18,6 +19,6 @@ export function off(name, func) {
 }
 
 export function emit(name, ...args) {
-  if (!list.name) return
-  list.name.forEach(o => o(...args))
+  if (!list[name]) return
+  list[name].forEach(o => o(...args))
 }

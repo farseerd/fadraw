@@ -4,7 +4,7 @@ import { merge } from 'lodash'
 
 import baseConf from './config'
 import { error } from './utils'
-
+import * as Event from './utils/event'
 import { App } from './components/app'
 
 export default class Fadraw {
@@ -13,12 +13,18 @@ export default class Fadraw {
       error('must have `el` option')
       return
     }
-    let el = document.querySelector(userOpt.el)
+
+    const el = document.querySelector(userOpt.el)
     if (!el) {
       error(`cannot find dom \`${userOpt.el}\``)
       return
     }
-    let opt = merge({}, baseConf, userOpt)
+
+    const opt = merge({}, baseConf, userOpt)
     render(<App {...opt} />, el)
+  }
+
+  addRect() {
+    Event.emit('add:rect')
   }
 }

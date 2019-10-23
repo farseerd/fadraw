@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
-import { Stage, Layer, Rect, Text, Image } from 'react-konva'
+import React, { useState, useEffect } from 'react'
+import { Stage, Layer } from 'react-konva'
+import { merge } from 'lodash'
+import uuidv4 from 'uuid/v4'
 
 import baseConf from '../config'
+import * as Event from '../utils/event'
 import { BackgroundImage } from './background'
 import { ShapeList } from './shape-list'
 
 export function App(props) {
   const [layerScale, setLayerScale] = useState(baseConf.layer.scale.initial)
   const [layerPos, setLayerPos] = useState({ x: 0, y: 0 })
+  const [shapeList, setShapeList] = useState([])
 
   // keep scale layer at fixed mouse position when wheeling
   function handleZoomStage(e) {
@@ -33,6 +37,14 @@ export function App(props) {
     setLayerPos({ x, y })
   }
 
+  useEffect(() => {
+    function handleAddRect(opt) {
+      setShapeList([...shapeList, merge({ id: uuidv4() }, baseConf.shape.rect, opt)])
+    }
+    Event.on('add:rect', handleAddRect)
+    return () => { Event.off('add:rect') }
+  })
+
   return (
     <div
       style={{ touchAction: 'none' }}
@@ -45,7 +57,7 @@ export function App(props) {
           draggable
         >
           <BackgroundImage />
-          <ShapeList />
+          <ShapeList shapeList={shapeList} />
         </Layer>
       </Stage>
     </div>

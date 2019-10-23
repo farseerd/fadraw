@@ -1,3 +1,5 @@
+import shape from './shape'
+
 export default {
   stage: {
     width: 800,
@@ -12,5 +14,6 @@ export default {
     }
   },
   scaleWhenWheel: true,
-  // background: 'https://s2.ax1x.com/2019/09/29/u8VZ28.png'
+  background: 'https://s2.ax1x.com/2019/09/29/u8VZ28.png',
+  shape
 }
