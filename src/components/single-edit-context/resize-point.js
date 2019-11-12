@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { Group, Rect } from 'react-konva'
+import { Rect } from 'react-konva'
 import uuidv4 from 'uuid/v4'
 import key from 'keymaster'
 
-import { S } from '../../shape-name'
 import { sin, cos, rotate, transScalePos, deTransScalePos } from '../../utils'
 import baseConf from '../../config'
 

@@ -3,6 +3,7 @@ import { Rect } from 'react-konva'
 import { S } from '../shape-name'
 
 export function ShapeList(props) {
+  let current = props.currentSingleEditShape
   function handleClick(e, shape) {
     props.onClickShape(shape, e.target)
   }
@@ -11,7 +12,15 @@ export function ShapeList(props) {
     props.onUpdateShape(shape.id, e.target)
   }
 
-  return props.shapeList.map(shape => {
+  let list = props.shapeList.filter(shape =>
+    current ? current.id !== shape.id : true
+  )
+  // make sure that current editing context is always on the top
+  if (current) {
+    list.push(props.shapeList.find(shape => current.id === shape.id))
+  }
+
+  return list.map(shape => {
     if (shape.type === S.RECT) {
       return (
         <Rect

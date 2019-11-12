@@ -27,5 +27,21 @@ export default {
       x: 4,
       y: 4
     }
-  }
+  },
+  rotate: {
+    circle: {
+      radius: 5,
+      fill: '#ffffff',
+      stroke: '#666666',
+      strokeWidth: 1
+    },
+    line: {
+      x: 0,
+      y: 0,
+      stroke: '#999999'
+    },
+    offset: 20
+  },
+  selectedOpacity: 1,
+  normalOpacity: 0.7
 }

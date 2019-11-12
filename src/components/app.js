@@ -56,12 +56,20 @@ export function App(props) {
   }
 
   function handleAddShape(type, opt) {
-    let addedShape = merge({ id: uuidv4() }, baseConf.shape[type], opt)
+    let addedShape = merge(
+      { id: uuidv4() },
+      baseConf.shape[type],
+      { opacity: baseConf.normalOpacity },
+      opt
+    )
     shapeMap[addedShape.id] = addedShape
     setShapeList([...shapeList, addedShape])
   }
 
   function setSingleEditCtx(shape, context) {
+    clearSingleEditCtx()
+    shapeMap[shape.id].opacity = baseConf.selectedOpacity
+    setShapeList([...shapeList])
     setSingleEditCtxShape(shape)
     setSingleEditCtxOri(context)
     setShowSingleEditCtx(true)
@@ -74,8 +82,10 @@ export function App(props) {
     setShapeList([...shapeList])
   }
 
-  function handleClickBg() {
+  function clearSingleEditCtx() {
     setShowSingleEditCtx(false)
+    shapeList.forEach(o => o.opacity = baseConf.normalOpacity)
+    setShapeList([...shapeList])
   }
 
   return (
@@ -90,9 +100,10 @@ export function App(props) {
           <BackgroundImage
             width={props.stage.width}
             height={props.stage.height}
-            onClick={handleClickBg}
+            onClick={clearSingleEditCtx}
           />
           <ShapeList
+            currentSingleEditShape={singleEditCtxShape}
             shapeList={shapeList}
             onClickShape={setSingleEditCtx}
             onUpdateShape={handleUpdateShape}

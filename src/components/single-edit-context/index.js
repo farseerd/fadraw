@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Group, Rect } from 'react-konva'
-import uuidv4 from 'uuid/v4'
+import React from 'react'
+import { Group } from 'react-konva'
 
 import { S } from '../../shape-name'
 import { ResizePoint } from './resize-point'
+import { RotatePoint } from './rotate-point'
 
 export function SingleEditCtx(props) {
   let { shape } = props
@@ -11,7 +11,7 @@ export function SingleEditCtx(props) {
   if (shape.type === S.RECT) {
     return (
       <Group>
-        {/* {this.getRotateLine()} */}
+        <RotatePoint {...props} />
         <ResizePoint name="left-top" {...props} />
         <ResizePoint name="top" {...props} />
         <ResizePoint name="right-top" {...props} />
@@ -20,7 +20,6 @@ export function SingleEditCtx(props) {
         <ResizePoint name="bottom" {...props} />
         <ResizePoint name="left-bottom" {...props} />
         <ResizePoint name="left" {...props} />
-        {/* {this.getRotatePoint()} */}
       </Group>
     )
   }
