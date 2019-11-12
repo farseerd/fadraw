@@ -4,7 +4,6 @@ import { merge } from 'lodash'
 
 import baseConf from './config'
 import { error } from './utils'
-import * as Event from './utils/event'
 import { App } from './components/app'
 
 export default class Fadraw {
@@ -22,9 +21,5 @@ export default class Fadraw {
 
     const opt = merge({}, baseConf, userOpt)
     render(<App {...opt} />, el)
-  }
-
-  addRect() {
-    Event.emit('add:rect')
   }
 }

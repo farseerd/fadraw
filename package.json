@@ -9,10 +9,12 @@
   "author": "farseer",
   "license": "MIT",
   "dependencies": {
+    "keymaster": "^1.6.2",
     "konva": "^4.0.12",
     "lodash": "^4.17.15",
     "react-dom": "^16.9.0",
     "react-konva": "^16.9.0-1",
+    "styled-components": "^4.4.1",
     "use-image": "^1.0.4",
     "uuid": "^3.3.3"
   },
