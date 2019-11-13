@@ -10,6 +10,7 @@ import { Toolbar } from './toolbar'
 import { BackgroundImage } from './background'
 import { ShapeList } from './shape-list'
 import { SingleEditCtx } from './single-edit-context'
+import { Dialog } from './dialog'
 
 const StyledApp = styled.div`
   touch-action: none;
@@ -30,6 +31,7 @@ export function App(props) {
   const [isShowSingleEditCtx, setShowSingleEditCtx] = useState(false)
   const [singleEditCtxShape, setSingleEditCtxShape] = useState(null)
   const [singleEditCtxOri, setSingleEditCtxOri] = useState(null)
+  const [show, setShow] = useState(false)
 
   // keep scale layer at fixed mouse position when wheeling
   function handleZoomStage(e) {
@@ -84,8 +86,16 @@ export function App(props) {
 
   function clearSingleEditCtx() {
     setShowSingleEditCtx(false)
-    shapeList.forEach(o => o.opacity = baseConf.normalOpacity)
+    shapeList.forEach(o => (o.opacity = baseConf.normalOpacity))
     setShapeList([...shapeList])
+  }
+
+  function showDialog() {
+    setShow(true)
+  }
+
+  function handleClose() {
+    setShow(false)
   }
 
   return (
@@ -95,6 +105,7 @@ export function App(props) {
         <Layer
           scale={{ x: layerScale, y: layerScale }}
           position={layerPos}
+          onClick={showDialog}
           draggable
         >
           <BackgroundImage
@@ -118,6 +129,7 @@ export function App(props) {
           ) : null}
         </Layer>
       </Stage>
+      <Dialog show={show} onClose={handleClose}></Dialog>
     </StyledApp>
   )
 }
