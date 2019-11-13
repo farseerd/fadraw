@@ -8,7 +8,7 @@ import { RotatePoint } from './rotate-point'
 export function SingleEditCtx(props) {
   let { shape } = props
 
-  if (shape.type === S.RECT) {
+  if (shape.type === S.RECT || shape.type === S.ELLIPSE) {
     return (
       <Group>
         <RotatePoint {...props} />

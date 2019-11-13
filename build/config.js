@@ -18,7 +18,7 @@ module.exports = {
     commonjs({
       namedExports: {
         konva: ['Konva'],
-        'react-konva': ['Stage', 'Layer', 'Text', 'Rect', 'Image', 'Shape', 'Group', 'Line', 'Circle'],
+        'react-konva': ['Stage', 'Layer', 'Text', 'Rect', 'Image', 'Shape', 'Group', 'Line', 'Circle', 'Ellipse'],
         'react-dom': ['render'],
         'react-is': ['isElement', 'isValidElementType', 'ForwardRef']
       }

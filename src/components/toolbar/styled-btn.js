@@ -7,14 +7,14 @@ export default styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: .3s;
-  svg {
-    opacity: .6;
-    transition: .3s;
+  transition: 0.3s;
+  & > div {
+    opacity: 0.6;
+    transition: 0.3s;
   }
   &:hover {
     background: #eee;
-    svg {
+    & > div {
       opacity: 1;
     }
   }

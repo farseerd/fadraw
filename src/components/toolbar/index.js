@@ -1,9 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { ToolBarRect } from './rect'
+import { TbShapeRect } from './shapes/rect'
+import { TbShapeEllipse } from './shapes/ellipse'
 
 const StyledToolbar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
   height: 30px;
   left: 0;
@@ -19,7 +22,8 @@ export function Toolbar(props) {
 
   return (
     <StyledToolbar>
-      <ToolBarRect onClick={handleAddShape}/>
+      <TbShapeRect onClick={handleAddShape}/>
+      <TbShapeEllipse onClick={handleAddShape}/>
     </StyledToolbar>
   )
 }

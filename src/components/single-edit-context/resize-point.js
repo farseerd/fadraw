@@ -5,6 +5,8 @@ import key from 'keymaster'
 
 import { sin, cos, rotate, transScalePos, deTransScalePos } from '../../utils'
 import baseConf from '../../config'
+import { getContextInfo } from '../common'
+import { S } from '../../shape-name'
 
 const resizePointMap = {
   'left-top': { cursor: 'nwse-resize' },
@@ -17,26 +19,12 @@ const resizePointMap = {
   left: { cursor: 'ew-resize' }
 }
 
-const ROTATE_CIRCLE_OFFSET = 30
 const RESIZE_MIN_SIZE = 30
 
 let currentCtx = null
 
 export function ResizePoint(props) {
   let { shape, context, name, layerInfo, onUpdateShape } = props
-
-  function getContextInfo() {
-    return {
-      x: context.x(),
-      y: context.y(),
-      r: context.rotation(),
-      w: context.width(),
-      h: context.height(),
-      ox: context.offsetX(),
-      oy: context.offsetY(),
-      id: shape.id
-    }
-  }
 
   function handleResizeMouseOver(e) {
     document.body.style.cursor = resizePointMap[e.target.name()].cursor
@@ -61,7 +49,7 @@ export function ResizePoint(props) {
     }
 
     pos = transScalePos(pos, layerInfo)
-    let { x, y, w, h, r, ox, oy } = getContextInfo(currentCtx)
+    let { x, y, w, h, r, ox, oy } = getContextInfo(shape, currentCtx)
     let [cosR, sinR] = [cos(r), sin(r)]
     if (/\-/.test(name)) {
       let nw, nh, sp
@@ -132,8 +120,8 @@ export function ResizePoint(props) {
         x: (pos.x + sp.x) / 2,
         y: (pos.y + sp.y) / 2,
         offset: {
-          x: nw / 2,
-          y: nh / 2
+          x: shape.type === S.ELLIPSE ? 0 : nw / 2,
+          y: shape.type === S.ELLIPSE ? 0 : nh / 2
         }
       })
     } else {
@@ -165,8 +153,8 @@ export function ResizePoint(props) {
           x: (pos.x + bp.x) / 2,
           y: (pos.y + bp.y) / 2,
           offset: {
-            x: nw / 2,
-            y: nh / 2
+            x: shape.type === S.ELLIPSE ? 0 : nw / 2,
+            y: shape.type === S.ELLIPSE ? 0 : nh / 2
           }
         })
       } else if (name == 'right') {
@@ -188,8 +176,8 @@ export function ResizePoint(props) {
           x: (pos.x + lp.x) / 2,
           y: (pos.y + lp.y) / 2,
           offset: {
-            x: nw / 2,
-            y: nh / 2
+            x: shape.type === S.ELLIPSE ? 0 : nw / 2,
+            y: shape.type === S.ELLIPSE ? 0 : nh / 2
           }
         })
       } else if (name == 'bottom') {
@@ -211,8 +199,8 @@ export function ResizePoint(props) {
           x: (pos.x + tp.x) / 2,
           y: (pos.y + tp.y) / 2,
           offset: {
-            x: nw / 2,
-            y: nh / 2
+            x: shape.type === S.ELLIPSE ? 0 : nw / 2,
+            y: shape.type === S.ELLIPSE ? 0 : nh / 2
           }
         })
       } else if (name == 'left') {
@@ -234,8 +222,8 @@ export function ResizePoint(props) {
           x: (pos.x + rp.x) / 2,
           y: (pos.y + rp.y) / 2,
           offset: {
-            x: nw / 2,
-            y: nh / 2
+            x: shape.type === S.ELLIPSE ? 0 : nw / 2,
+            y: shape.type === S.ELLIPSE ? 0 : nh / 2
           }
         })
       }
@@ -244,7 +232,7 @@ export function ResizePoint(props) {
     return deTransScalePos(pos, layerInfo)
   }
 
-  let { x, y, r, ox, oy } = getContextInfo()
+  let { x, y, r, ox, oy } = getContextInfo(shape, context)
   let point = { x, y }
   if (/left/.test(name)) {
     point.x -= ox

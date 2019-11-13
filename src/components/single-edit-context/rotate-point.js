@@ -4,25 +4,13 @@ import { Group, Line, Circle } from 'react-konva'
 import baseConf from '../../config'
 import { rotate, transScalePos, deTransScalePos } from '../../utils'
 import { S } from '../../shape-name'
+import { getContextInfo } from '../common'
 
 const _fixAtanInfo = {}
 
 export function RotatePoint(props) {
   let { shape, context, onUpdateShape, layerInfo } = props
   if (!context) return null
-
-  function getContextInfo() {
-    return {
-      x: context.x(),
-      y: context.y(),
-      r: context.rotation(),
-      w: context.width(),
-      h: context.height(),
-      ox: context.offsetX(),
-      oy: context.offsetY(),
-      id: shape.id
-    }
-  }
 
   function handleRotateMouseOver(e) {
     document.body.style.cursor = 'pointer'
@@ -34,7 +22,7 @@ export function RotatePoint(props) {
 
   function rotatePointDragBoundFunc(pos) {
 		pos = transScalePos(pos, layerInfo)
-		let { x, y, r, ox, oy, id } = getContextInfo()
+		let { x, y, r, ox, oy, id } = getContextInfo(shape, context)
 
 		// fix arctan
 		if (!_fixAtanInfo[id]) {
@@ -64,7 +52,7 @@ export function RotatePoint(props) {
 		return deTransScalePos(newPos, layerInfo)
 	}
 
-  let { x, y, r, ox, oy } = getContextInfo()
+  let { x, y, r, ox, oy } = getContextInfo(shape, context)
   let p = rotate(
     {
       x,
