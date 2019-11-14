@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import { TbShapeRect } from './shapes/rect'
 import { TbShapeEllipse } from './shapes/ellipse'
+import { TbShapePolygon } from './shapes/polygon'
 
 const StyledToolbar = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ export function Toolbar(props) {
     <StyledToolbar>
       <TbShapeRect onClick={handleAddShape}/>
       <TbShapeEllipse onClick={handleAddShape}/>
+      <TbShapePolygon onClick={handleAddShape}/>
     </StyledToolbar>
   )
 }

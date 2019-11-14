@@ -10,7 +10,8 @@ import { Toolbar } from './toolbar'
 import { BackgroundImage } from './background'
 import { ShapeList } from './shape-list'
 import { SingleEditCtx } from './single-edit-context'
-import { Dialog } from './dialog'
+import { S } from '../shape-name'
+import { InputCounter } from './input-counter'
 
 const StyledApp = styled.div`
   touch-action: none;
@@ -31,7 +32,7 @@ export function App(props) {
   const [isShowSingleEditCtx, setShowSingleEditCtx] = useState(false)
   const [singleEditCtxShape, setSingleEditCtxShape] = useState(null)
   const [singleEditCtxOri, setSingleEditCtxOri] = useState(null)
-  const [show, setShow] = useState(false)
+  const [showInputCounter, setShowInputCounter] = useState(false)
 
   // keep scale layer at fixed mouse position when wheeling
   function handleZoomStage(e) {
@@ -58,11 +59,25 @@ export function App(props) {
   }
 
   function handleAddShape(type, opt) {
+    if ([S.RECT, S.ELLIPSE].includes(type)) {
+      let addedShape = merge(
+        { id: uuidv4() },
+        baseConf.shape[type],
+        { opacity: baseConf.normalOpacity },
+        opt
+      )
+      shapeMap[addedShape.id] = addedShape
+      setShapeList([...shapeList, addedShape])
+    } else if (type === S.POLYGON) {
+      setShowInputCounter(true)
+    }
+  }
+
+  function handleInputCounterConfirm(edge) {
     let addedShape = merge(
       { id: uuidv4() },
-      baseConf.shape[type],
-      { opacity: baseConf.normalOpacity },
-      opt
+      baseConf.shape[S.POLYGON](edge),
+      { opacity: baseConf.normalOpacity }
     )
     shapeMap[addedShape.id] = addedShape
     setShapeList([...shapeList, addedShape])
@@ -78,7 +93,7 @@ export function App(props) {
   }
 
   function handleUpdateShape(shapeId, context) {
-    ;['x', 'y', 'rotation', 'width', 'height', 'offset', 'rotation'].map(k => {
+    ;['x', 'y', 'rotation', 'width', 'height', 'offset', 'rotation', 'points'].map(k => {
       shapeMap[shapeId][k] = context[k]()
     })
     setShapeList([...shapeList])
@@ -90,14 +105,6 @@ export function App(props) {
     setShapeList([...shapeList])
   }
 
-  function showDialog() {
-    setShow(true)
-  }
-
-  function handleClose() {
-    setShow(false)
-  }
-
   return (
     <StyledApp onWheel={baseConf.scaleWhenWheel ? handleZoomStage : null}>
       <Toolbar onAddShape={handleAddShape}></Toolbar>
@@ -105,7 +112,6 @@ export function App(props) {
         <Layer
           scale={{ x: layerScale, y: layerScale }}
           position={layerPos}
-          onClick={showDialog}
           draggable
         >
           <BackgroundImage
@@ -129,7 +135,11 @@ export function App(props) {
           ) : null}
         </Layer>
       </Stage>
-      <Dialog show={show} onClose={handleClose}></Dialog>
+      <InputCounter
+        show={showInputCounter}
+        onHide={e => setShowInputCounter(false)}
+        onConfirm={handleInputCounterConfirm}
+      />
     </StyledApp>
   )
 }

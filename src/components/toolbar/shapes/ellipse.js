@@ -9,6 +9,7 @@ const StyledEllipse = styled.div`
   height: 14px;
   border: 2px solid #333;
   border-radius: 10px;
+  background: #fff
 `
 
 export function TbShapeEllipse(props) {

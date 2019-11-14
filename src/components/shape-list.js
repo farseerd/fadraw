@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Rect, Ellipse } from 'react-konva'
+import { Rect, Ellipse, Line } from 'react-konva'
 import { S } from '../shape-name'
 
 export function ShapeList(props) {
@@ -39,6 +39,19 @@ export function ShapeList(props) {
           {...shape}
           key={shape.id}
           draggable
+          onClick={e => handleClick(e, shape)}
+          onDragStart={e => handleClick(e, shape)}
+          onDragMove={e => updateShape(e, shape)}
+          onDragEnd={e => updateShape(e, shape)}
+        />
+      )
+    } else if (shape.type === S.POLYGON) {
+      return (
+        <Line
+          {...shape}
+          key={shape.id}
+          draggable
+          closed
           onClick={e => handleClick(e, shape)}
           onDragStart={e => handleClick(e, shape)}
           onDragMove={e => updateShape(e, shape)}

@@ -12,7 +12,7 @@ const StyledBtnWrap = styled.div`
 const StyledBtn = styled.button`
   width: 80px;
   height: 24px;
-  line-height: 24px;
+  line-height: 22px;
   font-size: 12px;
   background: #fff;
   border: 1px solid #ccc;

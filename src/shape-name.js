@@ -1,4 +1,5 @@
 export const S = {
   RECT: 'rect',
-  ELLIPSE: 'ellipse'
+  ELLIPSE: 'ellipse',
+  POLYGON: 'polygon'
 }

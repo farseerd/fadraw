@@ -8,13 +8,13 @@ export default styled.div`
   align-items: center;
   cursor: pointer;
   transition: 0.3s;
-  & > div {
+  & > * {
     opacity: 0.6;
     transition: 0.3s;
   }
   &:hover {
     background: #eee;
-    & > div {
+    & > * {
       opacity: 1;
     }
   }

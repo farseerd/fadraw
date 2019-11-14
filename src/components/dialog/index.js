@@ -13,8 +13,8 @@ export function Dialog(props) {
   function close() {
     setInnerClose(true)
     setTimeout(() => {
-      props.onClose()
       setInnerClose(false)
+      props.onClose()
     }, 200)
   }
 
@@ -23,6 +23,7 @@ export function Dialog(props) {
   }
 
   function handleConfirm() {
+    props.onConfirm()
     close()
   }
 
@@ -30,18 +31,19 @@ export function Dialog(props) {
     e.stopPropagation()
   }
 
-  if (!props.show) {
-    return null
-  }
-
   return (
     <StyledDialog>
       <StyledMask className={innerClose ? 'mask-close' : ''} />
       <StyledDialogWrap onClick={handleCancel}>
-        <StyledDialogInner onClick={handleClickInner} style={{height: `${props.height || 60}%`}} className={innerClose ? 'dialog-close' : ''}>
-          <div>
-            {props.children}
-          </div>
+        <StyledDialogInner
+          onClick={handleClickInner}
+          style={{
+            width: `${props.width || '60%'}`,
+            height: `${props.height || '60%'}`
+          }}
+          className={innerClose ? 'dialog-close' : ''}
+        >
+          <div style={{ position: 'relative' }}>{props.children}</div>
           <DialogBtns onCancel={handleCancel} onConfirm={handleConfirm} />
         </StyledDialogInner>
       </StyledDialogWrap>

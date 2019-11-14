@@ -8,6 +8,7 @@ const StyledRect = styled.div`
   width: 12px;
   height: 12px;
   border: 2px solid #333;
+  background: #fff;
 `
 
 export function TbShapeRect(props) {
